@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void makeArr(int N, int*& p)
+void makeArr(int*& p, int N)
 {
 	p = new (nothrow) int[N];
 	if (!p) exit(404);
