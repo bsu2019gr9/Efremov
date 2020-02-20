@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 int* giveMemory(int N);
 void freeMemory(int A[]);
 void initRandomArray(int A[], const int N);
