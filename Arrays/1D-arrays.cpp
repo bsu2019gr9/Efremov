@@ -16,7 +16,7 @@ void freeMemory(int*& A)
 	A = nullptr;
 }
 
-void initRandomArray(int* beg, int* end, const int M, const int m)
+void initRandomArray(int* beg, int* end, int M, int m)
 {
 	srand(time(0));
 	int d = M - m + 1;
@@ -102,7 +102,41 @@ void rightPermutation(int* beg, int* end)
 	}
 }
 
-//sortArr is coming soon
+void bubbleSort(int* beg, int* end)
+{
+	bool b = 1;
+	while (b)
+	{
+		b = 0;
+		for (int* j = beg; j < end - 1; ++j)
+			if (*j > * (j + 1))
+			{
+				swap(*j, *(j + 1));
+				b = 1;
+			}
+		--end;
+	}
+}
+
+void quicksort(int* beg, int* end)
+{
+	int a = *(beg + (end - beg) / 2);
+	int* b = beg;
+	int* e = end - 1;
+	while (b <= e)
+	{
+		while (*b < a) ++b;
+		while (*e > a) --e;
+		if (b <= e)
+		{
+			swap(*b, *e);
+			++b;
+			--e;
+		}
+	}
+	if (beg < e) quicksort(beg, e + 1);
+	if (b < end) quicksort(b, end);
+}
 
 void reverse(int *beg, int *end)
 {
