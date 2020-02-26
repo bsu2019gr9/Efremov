@@ -16,7 +16,7 @@ void freeMemory(int*& A)
 	A = nullptr;
 }
 
-void initRandomArray(int* beg, int* end, int M, int m)
+void initRandomArray(int* beg, int* end, int m, int M)
 {
 	srand(time(0));
 	int d = M - m + 1;
