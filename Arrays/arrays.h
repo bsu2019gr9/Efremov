@@ -15,7 +15,10 @@ void bubbleSort(int* beg, int* end);
 void quicksort(int* beg, int* end);
 void reverse(int* beg, int*end);
 //двумерные массивы
-int**& makeArr(int N, int M);
+int**& makeArrN(int N, int M);
+int**& makeArrM(int M, int N);
 void freeMemory(int**& p, int N);
-void initRandomArray(int** p, int N, int M, int min, int max);
-void printArray(int** p, int N, int M);
+void initRandomArrayM(int** p, int N, int M, int min = -10, int max = 10);
+void initRandomArrayN(int** p, int N, int M, int min = -10, int max = 10);
+void printArrayN(int** p, int N, int M);
+void printArrayM(int** p, int N, int M);

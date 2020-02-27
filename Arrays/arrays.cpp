@@ -1,6 +1,8 @@
 ﻿//одномерные массивы
 #include <iostream>
-#include<ctime>
+#include <ctime>
+#include <iomanip>
+#include "arrays.h"
 
 using namespace std;
 
@@ -147,20 +149,32 @@ void quicksort(int* beg, int* end)
 
 void reverse(int *beg, int *end)
 {
-	for (int *p=beg, int*q=end-1; p < q; ++p,--q)
+	int* p, * q;
+	for (p=beg, q=end-1; p < q; ++p,--q)
 	{
 		swap(*p, *q);
 	}
 }
 
 //двумерные массивы
-int**& makeArr(int N, int M)
+int**& makeArrN(int N, int M)
 {
 	int** p = new (nothrow) int* [N];
 	for (size_t i = 0; i < N; ++i)
 		p[i] = nullptr;
 	for (size_t i = 0; i < N; ++i)
 		p[i] = new (nothrow) int[M];
+	if (!p) exit(404);
+	return p;
+}
+
+int**& makeArrM(int N, int M)
+{
+	int** p = new (nothrow) int* [M];
+	for (int i = 0; i < M; ++i)
+		p[i] = nullptr;
+	for (int i = 0; i < M; ++i)
+		p[i] = new (nothrow) int[N];
 	if (!p) exit(404);
 	return p;
 }
@@ -172,7 +186,7 @@ void freeMemory(int**& p, int N)
 	p = nullptr;
 }
 
-void initRandomArray(int** p, int N, int M, int min, int max)
+void initRandomArrayN(int** p, int N, int M, int min, int max)
 {
 	srand(time(0));
 	int d = max - min + 1;
@@ -181,14 +195,37 @@ void initRandomArray(int** p, int N, int M, int min, int max)
 			p[i][j] = rand() % d + min;
 }
 
-void printArray(int** p, int N, int M)
+void initRandomArrayM(int** p, int N, int M, int min, int max)
+{
+	srand(time(0));
+	int d = max - min + 1;
+	for (int i = 0; i < N; ++i)
+		for (int j = 0; j < M; ++j)
+			p[j][i] = rand() % d + min;
+}
+
+void printArrayN(int** p, int N, int M)
 {
 	for (int i = 0; i < N; ++i)
 	{
 		for (int j = 0; j < M; ++j)
 		{
-			cout << p[i][j] << " ";
+			cout <<setw(4)<< p[i][j];
 		}
 		cout << '\n';
 	}
+	cout << "------------------------------\n";
+}
+
+void printArrayM(int** p, int N, int M)
+{
+	for (int i = 0; i < N; ++i)
+	{
+		for (int j = 0; j < M; ++j)
+		{
+			cout << setw(4) << p[j][i];
+		}
+		cout << '\n';
+	}
+	cout << "------------------------------\n";
 }
