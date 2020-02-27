@@ -6,10 +6,6 @@
 
 using namespace std;
 
-int**& makeArrM(int M, int N);
-void initRandomArrayM(int** p, int N, int M, int min = -10, int max = 10);
-void printArrayM(int** p, int N, int M);
-
 int howManyEvenElementsInCol(int** p, int N, int M);
 void bubbleSortOfColsWithEvenElements(int**& p, int N, int M);
 
