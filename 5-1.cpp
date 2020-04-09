@@ -85,7 +85,7 @@ void EngMoney::operator=(const EngMoney& m)
 }
 EngMoney EngMoney::operator+(const EngMoney& m)
 {
-	return EngMoney(pound + m.pound + (shill + m.shill) / 20, (shill + m.shill) % 20 + (pence + m.pence) / 12, (pence + m.pence) % 12);
+	return EngMoney(pound + m.pound + (shill + m.shill) / 20, (shill + m.shill) % 20 + (pence + m.pence) / 12, (pence + m.pence) % 12); //неоптимально. 3 раза 
 }
 EngMoney EngMoney::operator-(const EngMoney& m)
 {
