@@ -22,8 +22,14 @@ public:
 	friend void operator>>(istream& in, EngMoney& m);
 };
 
-EngMoney f1(EngMoney& m);
-EngMoney* f2(EngMoney* m);
+EngMoney f1(EngMoney& m)
+{
+	return m;
+}
+EngMoney* f2(EngMoney* m)
+{
+	return m;
+}
 
 int main()
 {
@@ -101,13 +107,4 @@ void operator>>(istream& in, EngMoney& m)
 	m.pound += m.shill / 20;
 	m.shill = m.shill % 20 + m.pence / 12;
 	m.pence = m.pence % 12;
-}
-
-EngMoney f1(EngMoney& m)
-{
-	return m;
-}
-EngMoney* f2(EngMoney* m)
-{
-	return m;
 }
