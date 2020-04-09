@@ -76,7 +76,6 @@ void EngMoney::operator=(const EngMoney& m)
 	pound = m.pound;
 	shill = m.shill;
 	pence = m.pence;
-	//return EngMoney(m.pound, m.shill, m.pence);
 }
 EngMoney EngMoney::operator+(const EngMoney& m)
 {
