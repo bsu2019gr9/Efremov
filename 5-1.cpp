@@ -88,21 +88,21 @@ EngMoney EngMoney::operator+(const EngMoney& m)
 	int po = pound + m.pound;
 	int sh = shill + m.shill;
 	int pe = pence + m.pence;
-	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12);
+	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12); //лишнее!!!!!!!!! Всё выполнит автоматически конструктор!!!!!
 }
 EngMoney EngMoney::operator-(const EngMoney& m)
 {
 	int po = pound - m.pound;
 	int sh = shill - m.shill;
 	int pe = pence - m.pence;
-	return EngMoney(po - sh / 20, sh % 20 - pe / 12, pe % 12);
+	return EngMoney(po - sh / 20, sh % 20 - pe / 12, pe % 12); //лишнее!!!!!!!!! Всё выполнит автоматически конструктор!!!!!
 }
 EngMoney EngMoney::operator*(const int n)
 {
 	int po = pound * n;
 	int sh = shill * n;
 	int pe = pence * n;
-	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12);
+	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12); //лишнее!!!!!!!!! Всё выполнит автоматически конструктор!!!!!
 }
 void operator<<(ostream& out, const EngMoney& m)
 {
@@ -113,7 +113,9 @@ void operator>>(istream& in, EngMoney& m)
 	in >> m.pound;
 	in >> m.shill;
 	in >> m.pence;
-	m.pound += m.shill / 20;
 	m.shill = m.shill % 20 + m.pence / 12;
+	
+	m.pound += m.shill / 20;
+
 	m.pence = m.pence % 12;
 }
