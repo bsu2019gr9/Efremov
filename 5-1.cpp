@@ -85,15 +85,24 @@ void EngMoney::operator=(const EngMoney& m)
 }
 EngMoney EngMoney::operator+(const EngMoney& m)
 {
-	return EngMoney(pound + m.pound + (shill + m.shill) / 20, (shill + m.shill) % 20 + (pence + m.pence) / 12, (pence + m.pence) % 12); //неоптимально. 3 раза 
+	int po = pound + m.pound;
+	int sh = shill + m.shill;
+	int pe = pence + m.pence;
+	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12);
 }
 EngMoney EngMoney::operator-(const EngMoney& m)
 {
-	return EngMoney(pound - m.pound - (shill - m.shill) / 20, (shill - m.shill) % 20 - (pence - m.pence) / 12, (pence - m.pence) % 12);
+	int po = pound - m.pound;
+	int sh = shill - m.shill;
+	int pe = pence - m.pence;
+	return EngMoney(po - sh / 20, sh % 20 - pe / 12, pe % 12);
 }
 EngMoney EngMoney::operator*(const int n)
 {
-	return EngMoney(pound * n + (shill * n) / 20, (shill * n) % 20 + (pence * n) / 12, (pence * n) % 12);
+	int po = pound * n;
+	int sh = shill * n;
+	int pe = pence * n;
+	return EngMoney(po + sh / 20, sh % 20 + pe / 12, pe % 12);
 }
 void operator<<(ostream& out, const EngMoney& m)
 {
