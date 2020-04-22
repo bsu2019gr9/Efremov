@@ -25,6 +25,10 @@ public:
 	EngMoney operator*=(const int n);
 	bool operator==(const EngMoney& m) const;
 	bool operator!=(const EngMoney& m) const;
+	bool operator>(const EngMoney& m) const;
+	bool operator>=(const EngMoney& m) const;
+	bool operator<(const EngMoney& m) const;
+	bool operator<=(const EngMoney& m) const;
 	friend void operator<<(ostream& out, const EngMoney& m);
 	friend void operator>>(istream& in, EngMoney& m);
 };
@@ -49,7 +53,8 @@ int main()
 	EngMoney b;
 	cin >> b;
 	cout << b;
-	cout << (a != b);
+	cout << (a > b) << "/n";
+	cout << (a != b) << "/n";
 	EngMoney c[3] = { {3,20,45 }, 2, {4, 21} };
 	for (int i = 0; i < 3; ++i)
 		cout << c[i];
@@ -143,6 +148,22 @@ bool EngMoney::operator==(const EngMoney& m) const
 bool EngMoney::operator!=(const EngMoney& m) const
 {
 	return(pound != m.pound || shill != m.shill || pence != m.pence);
+}
+bool EngMoney::operator>(const EngMoney& m) const
+{
+	return(pound * 240 + shill * 12 + pence > m.pound * 240 + m.shill * 12 + m.pence);
+}
+bool EngMoney::operator>=(const EngMoney& m) const
+{
+	return(pound * 240 + shill * 12 + pence >= m.pound * 240 + m.shill * 12 + m.pence);
+}
+bool EngMoney::operator<(const EngMoney& m) const
+{
+	return(pound * 240 + shill * 12 + pence < m.pound * 240 + m.shill * 12 + m.pence);
+}
+bool EngMoney::operator<=(const EngMoney& m) const
+{
+	return(pound * 240 + shill * 12 + pence <= m.pound * 240 + m.shill * 12 + m.pence);
 }
 void operator<<(ostream& out, const EngMoney& m)
 {
