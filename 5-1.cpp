@@ -29,8 +29,8 @@ public:
 	bool operator>=(const EngMoney& m) const;
 	bool operator<(const EngMoney& m) const;
 	bool operator<=(const EngMoney& m) const;
-	friend void operator<<(ostream& out, const EngMoney& m);
-	friend void operator>>(istream& in, EngMoney& m);
+	friend ostream& operator<<(ostream& out, const EngMoney& m);
+	friend istream& operator>>(istream& in, EngMoney& m);
 };
 
 EngMoney f1(EngMoney& m, EngMoney& n)
@@ -48,7 +48,7 @@ EngMoney f2(EngMoney* m)
 
 int main()
 {
-	EngMoney a(2, 19, 25);
+	EngMoney a(0, 29, 11);
 	cout << a;
 	EngMoney b;
 	cin >> b;
@@ -78,7 +78,7 @@ void normalize(EngMoney& m)
 	m.pound += m.shill / 20 + m.pence / 240;
 	m.shill = m.shill % 20 + (m.pence / 12) % 20;
 	m.pence %= 12;
-	if (m.shill >= 20 || m.shill <= 20)
+	if (m.shill >= 20 || m.shill <= -20)
 	{
 		m.pound += m.shill / 20;
 		m.shill %= 20;
@@ -92,6 +92,7 @@ EngMoney::EngMoney() :
 {
 	cout << "no params constructor working \n";
 }
+
 EngMoney::EngMoney(int a, int b, int c) :
 	pound(a),
 	shill(b),
@@ -100,10 +101,12 @@ EngMoney::EngMoney(int a, int b, int c) :
 	normalize(*this);
 	cout << "constructor working for " << this->pound << ' ' << this->shill << ' ' << this->pence << "\n";
 }
+
 EngMoney::~EngMoney()
 {
 	cout << "destructor working for...\n"; 
 }
+
 EngMoney::EngMoney(const EngMoney& m) :
 	pound(m.pound),
 	shill(m.shill),
@@ -111,68 +114,97 @@ EngMoney::EngMoney(const EngMoney& m) :
 {
 	cout << "copy constructor working for" << this->pound << ' ' << this->shill << ' ' << this->pence << "\n";
 }
+
 void EngMoney::operator=(const EngMoney& m)
 {
 	pound = m.pound;
 	shill = m.shill;
 	pence = m.pence;
 }
+
 EngMoney EngMoney::operator+(const EngMoney& m) const
 {
 	return EngMoney(pound + m.pound, shill + m.shill, pence + m.pence);
 }
+
 EngMoney EngMoney::operator-(const EngMoney& m) const
 {
 	return EngMoney(pound - m.pound, shill - m.shill, pence - m.pence);
 }
+
 EngMoney EngMoney::operator*(const int n) const
 {
 	return EngMoney(pound * n, shill * n, pence * n);
 }
+
 EngMoney EngMoney::operator+=(const EngMoney& m)
 {
-	return EngMoney(pound += m.pound, shill += m.shill, pence += m.pence);
+	pound += m.pound; 
+	shill += m.shill; 
+	pence += m.pence;
+	normalize(*this);
+	return EngMoney(*this);
 }
+
 EngMoney EngMoney::operator-=(const EngMoney& m)
 {
-	return EngMoney(pound -= m.pound, shill -= m.shill, pence -= m.pence);
+	pound -= m.pound;
+	shill -= m.shill;
+	pence -= m.pence;
+	normalize(*this);
+	return EngMoney(*this);
 }
+
 EngMoney EngMoney::operator*=(const int n)
 {
-	return(pound *= n, shill *= n, pence *= n);
+	pound *= n;
+	shill *= n;
+	pence *= n;
+	normalize(*this);
+	return EngMoney(*this);
 }
+
 bool EngMoney::operator==(const EngMoney& m) const
 {
 	return(pound == m.pound && shill == m.shill && pence == m.pence);
 }
+
 bool EngMoney::operator!=(const EngMoney& m) const
 {
 	return(pound != m.pound || shill != m.shill || pence != m.pence);
 }
+
 bool EngMoney::operator>(const EngMoney& m) const
 {
 	return(pound * 240 + shill * 12 + pence > m.pound * 240 + m.shill * 12 + m.pence);
 }
+
 bool EngMoney::operator>=(const EngMoney& m) const
 {
 	return(pound * 240 + shill * 12 + pence >= m.pound * 240 + m.shill * 12 + m.pence);
 }
+
 bool EngMoney::operator<(const EngMoney& m) const
 {
 	return(pound * 240 + shill * 12 + pence < m.pound * 240 + m.shill * 12 + m.pence);
 }
+
 bool EngMoney::operator<=(const EngMoney& m) const
 {
 	return(pound * 240 + shill * 12 + pence <= m.pound * 240 + m.shill * 12 + m.pence);
 }
-void operator<<(ostream& out, const EngMoney& m)
+
+ostream& operator<<(ostream& out, const EngMoney& m)
 {
-	out << m.pound << " po " << m.shill << " sh " << m.pence <<" pe"<< "\n";
+	out << m.pound << " po " << m.shill << " sh " << m.pence <<" pe";
+	return out;
 }
-void operator>>(istream& in, EngMoney& m)
+
+istream& operator>>(istream& in, EngMoney& m)
 {
 	in >> m.pound;
 	in >> m.shill;
 	in >> m.pence;
 	normalize(m);
+	return in;
 }
